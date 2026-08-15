@@ -3,10 +3,11 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
+    const { id } = await params;
     const feed = await prisma.feed.findUnique({
-        where: { id: Number(params.id) },
+        where: { id: Number(id) },
         include: { posts: true },
     });
     if (!feed) return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -15,11 +16,12 @@ export async function GET(
 
 export async function PUT(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
+    const { id } = await params;
     const body = await request.json();
     const feed = await prisma.feed.update({
-        where: { id: Number(params.id) },
+        where: { id: Number(id) },
         data: {
             title: body.title,
             description: body.description,
@@ -31,8 +33,9 @@ export async function PUT(
 
 export async function DELETE(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
-    await prisma.feed.delete({ where: { id: Number(params.id) } });
+    const { id } = await params;
+    await prisma.feed.delete({ where: { id: Number(id) } });
     return NextResponse.json({ deleted: true });
 }

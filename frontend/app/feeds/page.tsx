@@ -16,8 +16,6 @@ interface ApiPost {
     author: { id: number; name: string };
 }
 
-// Derives a short preview from the full content, since posts don't store
-// a separate summary field.
 function getPreview(content: string, maxLength = 160): string {
     if (content.length <= maxLength) return content;
     return content.slice(0, maxLength) + "…";
