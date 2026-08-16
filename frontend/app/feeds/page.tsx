@@ -69,8 +69,8 @@ export default function Feeds() {
     const [editingId, setEditingId] = useState<number | null>(null);
     const [editForm, setEditForm] = useState<PostFormData>(emptyForm);
 
-    // With no login system, whoever is first in the Authors table is treated
-    // as "you" for posting purposes. Rename/reorder that record if needed.
+    // no login system defined, whoever is first in Authors table for now is the default poster.
+    // This logic will be altered if/when user authentification is implemented.
     const defaultAuthor = authors[0];
 
     async function loadAll() {
@@ -171,14 +171,14 @@ export default function Feeds() {
         <main className="max-w-350 mx-auto space-y-12 p-4">
             <h1 className="text-center text-5xl">Feeds</h1>
 
-            <div className="max-w-3xl mx-auto flex justify-center">
+            <div className="max-w-3xl mx-auto grid grid-cols-1 justify-center">
                 <button
                     onClick={() => setShowNewForm((s) => !s)}
-                    className="cursor-pointer border-2 border-border rounded-lg px-4 py-2 bg-background hover:bg-accent hover:text-white transition-colors"
+                    className=" max-w-m cursor-pointer border-2 border-border rounded-lg px-4 py-2 bg-background hover:bg-accent hover:text-white transition-colors"
                 >
                     {showNewForm ? "Cancel" : "+ New Post"}
                 </button>
-
+                
                 {showNewForm && (
                     <form onSubmit={handleCreate} className="mt-4 space-y-3 border-2 border-border rounded-lg p-4">
                         {defaultAuthor && (
@@ -194,7 +194,7 @@ export default function Feeds() {
                             onChange={(e) => setNewPost({ ...newPost, topic: e.target.value })}
                             className="w-full border rounded p-2 cursor-pointer">
                             <option value="">Select a topic (optional)…</option>
-                            {TOPIC_OPTIONS.map((t) => <option key={t} value={t}>{t}</option>)}
+                            {TOPIC_OPTIONS.map((t) => <option className="text-black" key={t} value={t}>{t}</option>)}
                         </select>
                         <input placeholder="Image URL (optional)" value={newPost.imageUrl}
                             onChange={(e) => setNewPost({ ...newPost, imageUrl: e.target.value })}
@@ -206,7 +206,7 @@ export default function Feeds() {
                             onChange={(e) => setNewPost({ ...newPost, feedId: e.target.value })}
                             className="w-full border rounded p-2 cursor-pointer">
                             <option value="">Select a feed…</option>
-                            {feeds.map((f) => <option key={f.id} value={f.id}>{f.title}</option>)}
+                            {feeds.map((f) => <option className="text-black" key={f.id} value={f.id}>{f.title}</option>)}
                         </select>
                         <button type="submit" className="cursor-pointer border-2 border-accent text-accent rounded-lg px-4 py-2 hover:bg-accent hover:text-white transition-colors">
                             Create Post
@@ -249,8 +249,7 @@ export default function Feeds() {
                                     <button type="submit" className="cursor-pointer border-2 border-accent text-accent rounded-lg px-4 py-2 hover:bg-accent hover:text-white transition-colors">
                                         Save
                                     </button>
-                                    <button type="button" onClick={() => setEditingId(null)}
-                                        className="cursor-pointer border-2 border-border rounded-lg px-4 py-2">
+                                    <button type="button" onClick={() => setEditingId(null)} className="cursor-pointer border-2 border-accent text-accent rounded-lg px-4 py-2 hover:bg-accent hover:text-white transition-colors">
                                         Cancel
                                     </button>
                                 </div>
