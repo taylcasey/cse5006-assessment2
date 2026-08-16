@@ -9,8 +9,17 @@ export default function ThemeToggle() {
     if (!context) {
         throw new Error("ThemeToggle must be used within a SiteProvider");
     }
-    const { theme, setTheme } = context;
+    const { theme, setTheme, mounted } = context;
     
+    if (!mounted) {
+            return (
+                <div className="flex gap-4 justify-center" role="group" aria-label="Theme selection">
+                    <div className="toggle-button invisible" aria-hidden="true">Light</div>
+                    <div className="toggle-button invisible" aria-hidden="true">Dark</div>
+                </div>
+            );
+        }
+
     return (
         <div className="flex gap-4 justify-center" role="group" aria-label="Theme selection">
             <button 
