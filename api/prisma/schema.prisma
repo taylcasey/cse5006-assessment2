@@ -38,7 +38,7 @@ model Post {
   content     String
   topic       String?
   imageUrl    String?
-  link        String
+  link        String?
   publishedAt DateTime @default(now())
 
   feedId      Int

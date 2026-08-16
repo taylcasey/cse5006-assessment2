@@ -18,8 +18,8 @@ export async function POST(request: Request) {
             topic: body.topic,
             imageUrl: body.imageUrl,
             link: body.link,
-            feedId: Number(body.feedId),
-            authorId: Number(body.authorId),
+            feed: { connect: { id: Number(body.feedId) } },
+            author: { connect: { id: Number(body.authorId) } },
         },
     });
     return NextResponse.json(post, { status: 201 });
