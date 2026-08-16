@@ -10,12 +10,12 @@
 }
 
 .dark {
-  --background:#151009;
-  --foreground:#F2ECE6;
-  --accent: #EA3B2E;
-  --accent-complementary: #151009;
+  --background: #3A3532;
+  --foreground: #F2ECE6;
+  --accent: #C4573E;
+  --accent-complementary: #F2ECE6;
   --muted: #A1A1AA;
-  --border: #27272A;
+  --border: #504A46;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
