@@ -139,7 +139,7 @@ export default function Feeds() {
             content: post.content,
             topic: post.topic ?? "",
             imageUrl: post.imageUrl ?? "",
-            link: post.link,
+            link: post.link ?? "",
             feedId: String(post.feedId),
         });
     }
